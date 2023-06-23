@@ -45,7 +45,7 @@ public class PurchaseController {
     public ResponseEntity<String> getHistoryTotal(@PathVariable("months")long months) {
         Stream<Purchase> purchases = purchaseService.getHistory(months);
         BigDecimal total = purchases.map(purchase->purchase.getPoints()).reduce(BigDecimal.ZERO,(acc, points)-> acc.add(points));
-        return ResponseEntity.ok("{ \"total\":\""+ total.toString() +"\"}");
+        return ResponseEntity.ok("{\"total\":\""+ total.toString() +"\"}\n");
     }
     @GetMapping("/{id}")
     public ResponseEntity<Purchase> getPurchaseById(@PathVariable("id")long id) {

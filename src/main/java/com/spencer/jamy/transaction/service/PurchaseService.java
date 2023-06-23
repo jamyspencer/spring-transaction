@@ -19,15 +19,19 @@ public class PurchaseService {
         this.purchaseRepository = purchaseRepository;
     }
 
+    @Transactional()
     public Purchase save(Purchase purchase){
         return purchaseRepository.save(purchase);
     }
+    @Transactional()
     public Iterable<Purchase> save(Iterable<Purchase> purchases){
         return purchaseRepository.saveAll(purchases);
     }
+    @Transactional(readOnly = true)
     public Optional<Purchase> findById(BigInteger id){
         return purchaseRepository.findById(id);
     }
+    @Transactional(readOnly = true)
     public Iterable<Purchase> findAll(){
         return purchaseRepository.findAll();
     }
