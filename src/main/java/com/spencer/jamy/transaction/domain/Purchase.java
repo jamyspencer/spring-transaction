@@ -1,12 +1,39 @@
 package com.spencer.jamy.transaction.domain;
 
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Entity
 public class Purchase {
+    @Id
+    @GeneratedValue
+    private BigInteger id;
     private BigDecimal amount;
+    @JsonFormat(pattern = "MM/dd/yyyy")
+    private LocalDate purchaseDate;
     private static BigDecimal fifty = BigDecimal.valueOf(50);
     public Purchase(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public Purchase() {
+
+    }
+
+    public BigInteger getId() {
+        return id;
+    }
+
+    public void setId(BigInteger id) {
+        this.id = id;
     }
 
     public BigDecimal getAmount() {
@@ -17,6 +44,15 @@ public class Purchase {
         this.amount = amount;
     }
 
+    public LocalDate getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    public void setPurchaseDate(LocalDate purchaseDate) {
+        this.purchaseDate = purchaseDate;
+    }
+
+    @Transient
     public BigDecimal getPoints() {
         int compare = this.amount.compareTo(Purchase.fifty);
         if (compare <= 0) {
